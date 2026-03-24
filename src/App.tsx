@@ -11,13 +11,13 @@ function App() {
 
   const handleAddShortcut = async () => {
     await liff.createShortcutOnHomeScreen({
-      url: "https://miniapp.line.me/2009124877-ajjI2b1l",
+      url: `https://miniapp.line.me/${import.meta.env.VITE_LIFF_ID}`
     })
   }
 
   useEffect(() => {
     (async () => {
-      await liff.init({ liffId: "2009124877-ajjI2b1l" })
+      await liff.init({ liffId: import.meta.env.VITE_LIFF_ID })
       console.log('LIFF Initialized Successfully')
       setOs(liff.getOS())
 
