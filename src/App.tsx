@@ -7,11 +7,13 @@ type Profile = Awaited<ReturnType<Liff['getProfile']>>
 
 function App() {
   const [profile, setProfile] = useState<Profile | null>(null)
+  const [os, setOs] = useState<ReturnType<Liff['getOS']>>(undefined)
 
   useEffect(() => {
     (async () => {
       await liff.init({ liffId: "2009124877-ajjI2b1l" })
       console.log('LIFF Initialized Successfully')
+      setOs(liff.getOS())
 
       const isLoggedIn = liff.isLoggedIn()
       if (!isLoggedIn) {
@@ -33,6 +35,7 @@ function App() {
   return (
     <>
       <p>{profile.displayName}</p>
+      <p>{os}</p>
     </>
   )
 }
