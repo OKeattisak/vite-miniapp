@@ -9,6 +9,12 @@ function App() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [os, setOs] = useState<ReturnType<Liff['getOS']>>(undefined)
 
+  const handleAddShortcut = async () => {
+    await liff.createShortcutOnHomeScreen({
+      url: "https://miniapp.line.me/2009124877-ajjI2b1l",
+    })
+  }
+
   useEffect(() => {
     (async () => {
       await liff.init({ liffId: "2009124877-ajjI2b1l" })
@@ -36,6 +42,7 @@ function App() {
     <>
       <p>{profile.displayName}</p>
       <p>{os}</p>
+      <button onClick={handleAddShortcut}>Add Shortcut</button>
     </>
   )
 }
