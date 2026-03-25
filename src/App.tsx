@@ -56,7 +56,24 @@ function App() {
     })()
   }, [])
 
-  if (!profile) return <p>Loading...</p>
+  if (!profile) return (
+    <div className="flex items-center justify-center min-h-screen">
+      <img
+        src="/spinner-light.svg"
+        alt="Loading"
+        width={30}
+        height={30}
+        className="dark:hidden"
+      />
+      <img
+        src="/spinner-dark.svg"
+        alt="Loading"
+        width={30}
+        height={30}
+        className="hidden dark:block"
+      />
+    </div>
+  )
 
   return (
     <>
@@ -71,7 +88,8 @@ function App() {
         </Avatar>
       </nav>
 
-      <div className="pt-16 p-4">
+      {/* Safe area: normal mode pb-[34px], landscape mode px-[44px] pb-[21px] */}
+      <div className="pt-16 p-4 pb-[34px] landscape:px-[44px] landscape:pb-[21px]">
         <Button onClick={handleAddShortcut}>
           <BookmarkPlus /> Add Shortcut
         </Button>
