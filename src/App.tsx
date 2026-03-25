@@ -35,9 +35,12 @@ function App() {
       await liff.init({
         liffId: import.meta.env.VITE_LIFF_ID,
         withLoginOnExternalBrowser: true
+      }).then(() => {
+        console.log('LIFF Initialized Successfully')
+      }).catch((err) => {
+        console.log(err)
       })
-      console.log('LIFF Initialized Successfully')
-
+      
       const isLoggedIn = liff.isLoggedIn()
       if (!isLoggedIn) {
         return liff.login()
