@@ -52,7 +52,6 @@ function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2 bg-white shadow-sm dark:bg-gray-900">
         <div className="flex items-center gap-2">
           <p className="font-semibold">{profile.displayName}</p>
-          <Badge>{os}</Badge>
         </div>
         <Avatar size="lg">
           <AvatarImage src={profile.pictureUrl} alt={profile.displayName} />
@@ -60,7 +59,7 @@ function App() {
           <AvatarBadge className="bg-green-600 dark:bg-green-800" />
         </Avatar>
       </nav>
-      
+
       <div className="pt-16 p-4">
         <Button variant="outline" onClick={handleAddShortcut}>
           <BookmarkPlus /> Add Shortcut
