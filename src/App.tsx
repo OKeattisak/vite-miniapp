@@ -15,7 +15,6 @@ type Profile = Awaited<ReturnType<Liff['getProfile']>>
 
 function App() {
   const [profile, setProfile] = useState<Profile | null>(null)
-  const [os, setOs] = useState<ReturnType<Liff['getOS']>>(undefined)
 
   const handleAddShortcut = async () => {
     await liff.createShortcutOnHomeScreen({
