@@ -2,7 +2,6 @@ import liff from '@line/liff'
 import type { Liff } from '@line/liff'
 import './App.css'
 import { useEffect, useState } from 'react'
-import { Badge } from './components/ui/badge'
 import { Button } from './components/ui/button'
 import { BookmarkPlus } from 'lucide-react'
 import {
