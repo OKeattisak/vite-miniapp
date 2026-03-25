@@ -2,6 +2,9 @@ import liff from '@line/liff'
 import type { Liff } from '@line/liff'
 import './App.css'
 import { useEffect, useState } from 'react'
+import { Badge } from './components/ui/badge'
+import { Button } from './components/ui/button'
+import { BookmarkPlus } from 'lucide-react'
 
 type Profile = Awaited<ReturnType<Liff['getProfile']>>
 
@@ -41,8 +44,10 @@ function App() {
   return (
     <>
       <p>{profile.displayName}</p>
-      <p>{os}</p>
-      <button onClick={handleAddShortcut}>Add Shortcut</button>
+      <Badge>{os}</Badge>
+      <Button variant="outline" size="sm" onClick={handleAddShortcut}>
+        <BookmarkPlus /> Add Shortcut
+      </Button>
     </>
   )
 }
