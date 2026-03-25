@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/avatar"
 
 type Profile = Awaited<ReturnType<Liff['getProfile']>>
+type Context = ReturnType<Liff['getContext']>
 
 function App() {
   const [profile, setProfile] = useState<Profile | null>(null)
+  const [context, setContext] = useState<Context | null>(null)
 
   const handleAddShortcut = async () => {
     await liff.createShortcutOnHomeScreen({
@@ -39,6 +41,9 @@ function App() {
 
       const p = await liff.getProfile()
       setProfile(p)
+
+      const ctx = liff.getContext()
+      setContext(ctx)
     })()
   }, [])
 
@@ -58,9 +63,15 @@ function App() {
       </nav>
 
       <div className="pt-16 p-4">
-        <Button variant="outline" onClick={handleAddShortcut}>
+        <Button onClick={handleAddShortcut}>
           <BookmarkPlus /> Add Shortcut
         </Button>
+
+        {context && (
+          <pre className="mt-4 p-3 bg-gray-100 rounded text-xs overflow-auto dark:bg-gray-800">
+            {JSON.stringify(context, null, 2)}
+          </pre>
+        )}
       </div>
     </>
   )
