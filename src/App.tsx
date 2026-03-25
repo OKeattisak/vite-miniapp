@@ -32,7 +32,10 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await liff.init({ liffId: import.meta.env.VITE_LIFF_ID })
+      await liff.init({
+        liffId: import.meta.env.VITE_LIFF_ID,
+        withLoginOnExternalBrowser: true
+      })
       console.log('LIFF Initialized Successfully')
 
       const isLoggedIn = liff.isLoggedIn()
