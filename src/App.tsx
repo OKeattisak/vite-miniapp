@@ -37,10 +37,16 @@ function App() {
         withLoginOnExternalBrowser: true
       }).then(() => {
         console.log('LIFF Initialized Successfully')
+        console.log(liff.getAppLanguage())
+        console.log(liff.getVersion())
+        console.log(liff.isInClient())
+        console.log(liff.isLoggedIn())
+        console.log(liff.getOS())
+        console.log(liff.getLineVersion())
       }).catch((err) => {
         console.log(err)
       })
-      
+
       const isLoggedIn = liff.isLoggedIn()
       if (!isLoggedIn) {
         return liff.login()
