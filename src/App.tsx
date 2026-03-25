@@ -5,6 +5,12 @@ import { useEffect, useState } from 'react'
 import { Badge } from './components/ui/badge'
 import { Button } from './components/ui/button'
 import { BookmarkPlus } from 'lucide-react'
+import {
+  Avatar,
+  AvatarBadge,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
 
 type Profile = Awaited<ReturnType<Liff['getProfile']>>
 
@@ -43,11 +49,18 @@ function App() {
 
   return (
     <>
+      <Avatar>
+        <AvatarImage src={profile.pictureUrl} alt={profile.displayName} />
+        <AvatarFallback>{profile.displayName}</AvatarFallback>
+        <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+      </Avatar>
       <p>{profile.displayName}</p>
       <Badge>{os}</Badge>
-      <Button variant="outline" size="sm" onClick={handleAddShortcut}>
-        <BookmarkPlus /> Add Shortcut
-      </Button>
+      <div>
+        <Button variant="outline" onClick={handleAddShortcut}>
+          <BookmarkPlus /> Add Shortcut
+        </Button>
+      </div>
     </>
   )
 }
