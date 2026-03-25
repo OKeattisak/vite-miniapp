@@ -26,7 +26,6 @@ function App() {
     (async () => {
       await liff.init({ liffId: import.meta.env.VITE_LIFF_ID })
       console.log('LIFF Initialized Successfully')
-      setOs(liff.getOS())
 
       const isLoggedIn = liff.isLoggedIn()
       if (!isLoggedIn) {
