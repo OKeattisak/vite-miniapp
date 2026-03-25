@@ -3,7 +3,7 @@ import type { Liff } from '@line/liff'
 import './App.css'
 import { useEffect, useState } from 'react'
 import { Button } from './components/ui/button'
-import { BookmarkPlus } from 'lucide-react'
+import { BookmarkPlus, ScanLine } from 'lucide-react'
 import {
   Avatar,
   AvatarBadge,
@@ -17,6 +17,12 @@ type Context = ReturnType<Liff['getContext']>
 function App() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [context, setContext] = useState<Context | null>(null)
+  const [scanResult, setScanResult] = useState<string | null>(null)
+
+  const handleScanCode = async () => {
+    const result = await liff.scanCodeV2()
+    setScanResult(result.value ?? null)
+  }
 
   const handleAddShortcut = async () => {
     await liff.createShortcutOnHomeScreen({
@@ -66,6 +72,10 @@ function App() {
         <Button onClick={handleAddShortcut}>
           <BookmarkPlus /> Add Shortcut
         </Button>
+        <Button className="ml-2" onClick={handleScanCode}>
+          <ScanLine /> Scan Code
+        </Button>
+        {scanResult && <p className="mt-2 text-sm">Result: {scanResult}</p>}
 
         {context && (
           <pre className="mt-4 p-3 bg-gray-100 rounded text-xs overflow-auto dark:bg-gray-800">
