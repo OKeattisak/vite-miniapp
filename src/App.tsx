@@ -49,7 +49,7 @@ function App() {
 
   return (
     <>
-      <Avatar>
+      <Avatar size="lg">
         <AvatarImage src={profile.pictureUrl} alt={profile.displayName} />
         <AvatarFallback>{profile.displayName}</AvatarFallback>
         <AvatarBadge className="bg-green-600 dark:bg-green-800" />
