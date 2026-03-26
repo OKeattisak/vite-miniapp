@@ -3,7 +3,7 @@ import type { Liff } from '@line/liff'
 import './App.css'
 import { useEffect, useState } from 'react'
 import { Button } from './components/ui/button'
-import { BookmarkPlus, ScanLine } from 'lucide-react'
+import { BookmarkPlus, ScanLine, Share2 } from 'lucide-react'
 import {
   Avatar,
   AvatarBadge,
@@ -18,6 +18,18 @@ function App() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [context, setContext] = useState<Context | null>(null)
   const [scanResult, setScanResult] = useState<string | null>(null)
+  const [canAddShortcut, setCanAddShortcut] = useState(false)
+  const [canScanCode, setCanScanCode] = useState(false)
+  const [canShare, setCanShare] = useState(false)
+
+  const handleShare = async () => {
+    await liff.shareTargetPicker([
+      {
+        type: 'text',
+        text: `https://miniapp.line.me/${import.meta.env.VITE_LIFF_ID}`
+      }
+    ])
+  }
 
   const handleScanCode = async () => {
     const result = await liff.scanCodeV2()
@@ -37,12 +49,9 @@ function App() {
         withLoginOnExternalBrowser: true
       }).then(() => {
         console.log('LIFF Initialized Successfully')
-        console.log(liff.getAppLanguage())
-        console.log(liff.getVersion())
-        console.log(liff.isInClient())
-        console.log(liff.isLoggedIn())
-        console.log(liff.getOS())
-        console.log(liff.getLineVersion())
+        setCanAddShortcut(liff.isInClient() && liff.isApiAvailable('createShortcutOnHomeScreen'))
+        setCanScanCode(liff.isInClient() && liff.isApiAvailable('scanCodeV2'))
+        setCanShare(liff.isInClient() && liff.isApiAvailable('shareTargetPicker'))
       }).catch((err) => {
         console.log(err)
       })
@@ -99,11 +108,14 @@ function App() {
 
       {/* Safe area: normal mode pb-[34px], landscape mode px-[44px] pb-[21px] */}
       <div className="pt-16 p-4 pb-[34px] landscape:px-[44px] landscape:pb-[21px]">
-        <Button onClick={handleAddShortcut}>
+        <Button onClick={handleAddShortcut} disabled={!canAddShortcut}>
           <BookmarkPlus /> Add Shortcut
         </Button>
-        <Button className="ml-2" onClick={handleScanCode}>
+        <Button className="ml-2" onClick={handleScanCode} disabled={!canScanCode}>
           <ScanLine /> Scan Code
+        </Button>
+        <Button className="ml-2" onClick={handleShare} disabled={!canShare}>
+          <Share2 /> Share
         </Button>
         {scanResult && <p className="mt-2 text-sm">Result: {scanResult}</p>}
 
